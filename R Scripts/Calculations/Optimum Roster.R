@@ -13,6 +13,7 @@ maxRisk <- 4.6
 
 #Library
 library("Rglpk")
+library("data.table")
 
 #Functions
 source(paste(getwd(),"/R Scripts/Functions/Functions.R", sep=""))
@@ -22,7 +23,7 @@ source(paste(getwd(),"/R Scripts/Functions/League Settings.R", sep=""))
 load(paste(getwd(),"/Data/AvgCost.RData", sep=""))
 
 #Roster Optimization
-optimizeData <- na.omit(projections[,c("name","player","pos","projections","risk","inflatedCost")]) #name,projectedPtsLatent,projectedPtsMedian
+optimizeData <- na.omit(projections[sourceName == "averageRobust", c("name","player","pos","points","risk","inflatedCost"), with=FALSE]) #name,projectedPtsLatent,projectedPtsMedian
 
 #Calculate Optimum Roster
 optimizeTeam(maxRisk=maxRisk)
